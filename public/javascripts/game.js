@@ -1,3 +1,4 @@
+var myId=0;
 var map;
 var tileset;
 var layer;
@@ -14,8 +15,6 @@ var background;
 var health = 5;
 var hpText;
 var air = 0;
-
-var myId=0;
 
 var fighterList;
 
@@ -36,6 +35,7 @@ var eurecaClientSetup = function() {
     eurecaClient.exports.setId = function(id)
     {
         //create() is moved here to make sure nothing is created before uniq id assignation
+        console.log("id = " + id );
         myId = id;
         create();
         eurecaServer.handshake();
@@ -72,12 +72,15 @@ var eurecaClientSetup = function() {
 }
 
 Fighter = function(index, game, player){
-    
+    console.log("myid = " + index);
+    //console.log("player.id = " + fighter.id);
+    console.log("Test test");
+
     this.cursor = {
         left:false,
         right:false,
         up:false,
-        punch:false
+        fire:false
     }
 
     this.input = {
@@ -87,19 +90,19 @@ Fighter = function(index, game, player){
         punch:false
     }
 
-    var x = 0;
-    var y = 0;
+    var x = game.width/2;
+    var y = 50;
 
     this.game = game;
     this.health = 30;
     this.player = player;
     this.alive = true;
 
-    this.player.id = index;
-    this.fighter = game.add.sprite(game.width / 2, 50, 'char');
+    //this.fighter.id = index;
+    this.fighter = game.add.sprite(x, y, 'char');
     game.physics.enable(this.fighter, Phaser.Physics.ARCADE);
     this.fighter.body.bounce.y = 0;
-    this.fighter.scale.setTo(.5, .5);
+    //this.fighter.scale.setTo(.5, .5);
     this.fighter.body.collideWorldBounds = false;
     this.fighter.body.setSize(70, 120);
     this.fighter.body.checkCollision.up = false;
@@ -112,11 +115,12 @@ Fighter = function(index, game, player){
     this.fighter.animations.add('punchRight', [0, 1, 2, 3, 4, 5, 6], 10, true);
     this.fighter.animations.add('punchLeft', [13, 12, 11, 10, 9, 8, 7], 10, true);
 
+    this.fighter.debug = true;
 
     //jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
     //game.height = 720;
     //game.width = 1280;
-    player.scale.setTo(0.9, 0.9);
+    this.fighter.scale.setTo(0.9, 0.9);
 
 };
 
@@ -138,7 +142,6 @@ Fighter.prototype.update = function(){
             // send latest valid state to the server
             this.input.x = this.fighter.x;
             this.input.y = this.fighter.y;
-            this.input.angle = this.fighter.angle;
 
             eurecaServer.handleKeys(this.input);
 
@@ -146,7 +149,7 @@ Fighter.prototype.update = function(){
     }
     fighter.body.velocity.x = 0;
 
-    if (this.cursor.left.isDown)
+    if (cursors.left.isDown)
     {
         fighter.body.velocity.x = -150;
         if (facing != 'left') {
@@ -155,7 +158,7 @@ Fighter.prototype.update = function(){
         }
         dirrection = 'left';
     }
-    else if (this.cursor.right.isDown)
+    else if (cursors.right.isDown)
     {
         fighter.body.velocity.x = 150;
         if (facing != 'right') {
@@ -177,26 +180,28 @@ Fighter.prototype.update = function(){
             facing = 'idle';
         }
     }
-    if (fighter.body.blocked.down) {
-        air = 0;
-    }
-    if (cursor.up.isDown && game.time.now > jumpTimer && air < 2) {
+
+    //console.log(fighter.body.blocked.down);
+    if ((cursors.up.isDown) && (game.time.now > jumpTimer )&& (air < 2)) {
+        console.log("Cyka");
         air++;
         fighter.body.velocity.y = -263;
         jumpTimer = game.time.now + 750;
     }
-    if (this.cursor.punch.isDown) {
+
+    if (cursors.punchButton) {
         fighter.body.velocity.x = 0;
         if (dirrection == 'left') {
             fighter.animations.play('punchLeft');
             facing = 'left';
         }
         if (dirrection == 'right') {
-            figher.animations.play('punchRight');
+            fighter.animations.play('punchRight');
             facing = 'right';
         }
     }
-    knockOut();
+    console.log(fighter.body.gravity.y);
+    this.knockOut();
 };
 
 Fighter.prototype.knockOut = function(){
@@ -219,23 +224,25 @@ var game = new Phaser.Game(1920, 1080, Phaser.CANVAS, 'phaser-example', { preloa
 function preload() {
     game.load.tilemap('orebro', './images/Graphics/orebroMap.json', null, Phaser.Tilemap.TILED_JSON);
     game.load.image('pixelN', './images/Graphics/pixel.png');
-
     game.load.image('concept', './images/Graphics/concept.png');
-
     game.load.spritesheet('char', './images/SpriteSheets/TemplateAnimation1.png', 70, 120);
 }
 
 function create() {
     game.physics.startSystem(Phaser.Physics.ARCADE);
     game.stage.backgroundColor = '#000000';
+    game.stage.disableVisibilityChange  = true;
+
     map = game.add.tilemap('orebro');
     map.addTilesetImage('pixel', 'pixelN');
+
     background = game.add.image(0, 0, "concept");
     background.fixedToCamera = false;
     layer = map.createLayer("Tile Layer 1");
     layer.setScale(3, 3);
     map.setCollisionBetween(0, 3);
     layer.debug = true;
+
     hpText = game.add.text(50, 25, "Health: 5", { font: "20px Arial", fill: "#ff0044" });
     hpText.anchor.set(.5, .5);
     /*map.addTilesetImage('tiles-1');
@@ -251,17 +258,18 @@ function create() {
 
     fighterList = {};
 
-    player = new Fighter(myId, game, fighter);
-    fighterList[myId] = player;
-    fighter = player.fighter;
-    fighter.x=0;
-    fighter.y=0;
+    this.player = new Fighter(myId, game, fighter);
+    fighterList[myId] = this.player;
+    console.log(myId);
+    fighter = this.player.fighter;
+
 
     fighter.bringToTop();
 
     cursors = game.input.keyboard.createCursorKeys();
 
     punchButton = game.input.keyboard.addKey(Phaser.Keyboard.Z);
+
 }
 
 function update() {
@@ -272,27 +280,27 @@ function update() {
     player.input.left = cursors.left.isDown;
     player.input.right = cursors.right.isDown;
     player.input.up = cursors.up.isDown;
-    player.input.fire = game.input.activePointer.isDown;
-    player.input.tx = game.input.x+ game.camera.x;
-    player.input.ty = game.input.y+ game.camera.y;
+    player.input.punch = game.input.punchButton;
+
     for (var i in fighterList)
     {
         if (!fighterList[i]) continue;
-        var curTank = fighterList[i].fighter;
-        for (var j in fighterList)
+        var curFgt = fighterList[i].fighter;
+        if (fighterList[i].alive)
         {
-            if (tanksList[j].alive)
-            {
-                tanksList[j].update();
-            }
+                fighterList[i].update();
+
+                game.physics.arcade.collide(curFgt, layer, collisionAlter);
+                //console.log(fighterList[j].fighter.body.gravity.y);
         }
     }
-        console.log(air);
-        updateText();
+    //console.log(air);
+    updateText();
 }
 
 function collisionAlter() {
-    player.body.onFloor = true;
+    air=0;
+    //player.body.onFloor = true;
 }
 
 function updateText() {
@@ -300,13 +308,13 @@ function updateText() {
 }
 
 function render() {
-    /*var fps = game.time.suggestedFps;
+    var fps = game.time.suggestedFps;
     var FPS = fps.toString();
     game.debug.text(FPS, 32, 64, '#FF0000');
     var bla = game.time.totalElapsedSeconds();
     var BLA = bla.toString();
     game.debug.text(BLA, 32, 96);
-    game.debug.body(player);
-    game.debug.bodyInfo(player, 16, 200);*/
+
 }
+
 //# sourceMappingURL=app.js.map

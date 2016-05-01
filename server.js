@@ -25,7 +25,7 @@ eurecaServer.attach(server);
 //detect client connection
 eurecaServer.onConnect(function (conn) {    
     console.log('New Client id=%s ', conn.id, conn.remoteAddress);
-	
+	console.log(conn.id);
 	//the getClient method provide a proxy allowing us to call remote client functions
     var remote = eurecaServer.getClient(conn.id);    
 	
