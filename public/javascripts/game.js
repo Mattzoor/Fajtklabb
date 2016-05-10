@@ -101,8 +101,6 @@ Fighter = function(index, game, player){
     this.flyDirection;
     this.facing = 'left';
     this.dirrection = 'left';
-    var backHitbox;
-    var frontHitbox;
     //this.fighter.id = index;
     //if(datBoi == false){
     this.fighter = game.add.sprite(x, y, 'allAnim');
@@ -128,6 +126,8 @@ Fighter = function(index, game, player){
     this.fighter.animations.add('leftInAir', [66],10, true);
     this.fighter.debug = true;
     this.fighter.id = index;
+    this.dmgText = game.add.text(500, 25, "Damage: ", { font: "20px Arial", fill: "#ff0044" });
+    this.dmgText.anchor.set(.5, .5);
         //jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
         //game.height = 720;
         //game.width = 1280;
@@ -177,7 +177,8 @@ Fighter.prototype.update = function(){
         this.fighter.air == undefined ||
         this.fighter.justPunched == undefined ||
         this.fighter.gotPunched == undefined ||
-        this.fighter.flyDirection == undefined)
+        this.fighter.flyDirection == undefined ||
+        this.fighter.dmgMulti == undefined)
     {
         this.fighter.jumpTimer = 0;
         this.fighter.punchTimer = 0;
@@ -186,6 +187,7 @@ Fighter.prototype.update = function(){
         this.fighter.justPunched = false;
         this.fighter.gotPunched = false;
         this.fighter.flyDirection = 'left';
+        this.fighter.dmgMulti = 1;
         return;
     }
 
@@ -357,7 +359,9 @@ function checkHit(fighter, target){
     //console.log(game.physics.arcade.overlap(fighter, target));
     //fighter.body.velocity.x = 0;
     //
-    target.gotPunched = true;
+    if(game.time.now > target.punchTimer)
+        target.gotPunched = true;
+
     if (fighter.dirrection == 'left')
         target.flyDirection = 'left';
 
@@ -392,8 +396,6 @@ function create() {
     map.setCollisionBetween(0, 3);
     layer.debug = true;
 
-    hpText = game.add.text(50, 25, "Health: 5", { font: "20px Arial", fill: "#ff0044" });
-    hpText.anchor.set(.5, .5);
     /*map.addTilesetImage('tiles-1');
     layer = map.createLayer('Tile Layer 1');*/
     game.physics.arcade.gravity.y = 250;
@@ -439,9 +441,9 @@ function update() {
             if (j!=i)
             {
                 var targetFgt = fighterList[j].fighter;
-                if(curFgt.justPunched == true && targetFgt.gotPunched != true){
+                if(curFgt.justPunched == true && targetFgt.gotPunched != true && game.physics.arcade.overlap(curFgt, targetFgt) ){
                     //if(curFgt.animations.currentAnim.frame == 4){
-                        if(game.physics.arcade.overlap(curFgt, targetFgt)){
+                        if(curFgt.animations.currentAnim.frame == 3 || curFgt.animations.currentAnim.frame == 10|| curFgt.animations.currentAnim.frame == 17 || curFgt.animations.currentAnim.frame == 24)  {
                             console.log("Dat Boi");
                             checkHit(curFgt, targetFgt);
                         }
@@ -453,6 +455,7 @@ function update() {
             if (fighterList[j].alive)
             {
                 fighterList[j].update();
+                //updateText(fighterList[j].fighter);
             }
         }
 
@@ -466,8 +469,9 @@ function collisionAlter() {
     //player.body.onFloor = true;
 }
 
-function updateText() {
+function updateText(fighter) {
     //hpText.setText("Health: " + this.fighter.health);
+    //fighter.dmgText.setText("Damage: " + fighter.dmgMulti);
 }
 
 function render() {
