@@ -3,9 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="9863ded8-b754-4b11-a959-f77cac1e6fa7" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/index.html" afterPath="$PROJECT_DIR$/public/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/javascripts/game.js" afterPath="$PROJECT_DIR$/public/javascripts/game.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server.js" afterPath="$PROJECT_DIR$/server.js" />
     </list>
     <ignored path="FajtKlabb.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -39,11 +37,12 @@
       <file leaf-file-name="game.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/javascripts/game.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="504">
-              <caret line="438" column="69" selection-start-line="438" selection-start-column="69" selection-end-line="438" selection-end-column="69" />
+            <state relative-caret-position="351">
+              <caret line="443" column="61" selection-start-line="443" selection-start-column="61" selection-end-line="443" selection-end-column="61" />
               <folding>
-                <element signature="e#11151#11179#0" expanded="false" />
-                <element signature="e#11220#11692#0" expanded="false" />
+                <element signature="e#4143#5768#0" expanded="false" />
+                <element signature="e#11137#11165#0" expanded="false" />
+                <element signature="e#11206#11678#0" expanded="false" />
                 <element signature="n#!!block;n#collisionAlter#0" expanded="false" />
               </folding>
             </state>
@@ -85,10 +84,10 @@
     <detection-done>true</detection-done>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-1928" />
-    <option name="y" value="-169" />
-    <option name="width" value="1936" />
-    <option name="height" value="1056" />
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1382" />
+    <option name="height" value="744" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -320,18 +319,18 @@
       <workItem from="1462343616073" duration="14600000" />
       <workItem from="1462473250892" duration="270000" />
       <workItem from="1462782742183" duration="4165000" />
-      <workItem from="1462793840370" duration="5580000" />
+      <workItem from="1462793840370" duration="11967000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="72543000" />
+    <option name="totallyTimeSpent" value="78930000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1928" y="-169" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.116145834" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16325037" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -420,8 +419,9 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#11151#11179#0" expanded="false" />
-            <element signature="e#11220#11692#0" expanded="false" />
+            <element signature="e#4143#5768#0" expanded="false" />
+            <element signature="e#11137#11165#0" expanded="false" />
+            <element signature="e#11206#11678#0" expanded="false" />
             <element signature="n#!!block;n#collisionAlter#0" expanded="false" />
           </folding>
         </state>
@@ -472,8 +472,9 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#11151#11179#0" expanded="false" />
-            <element signature="e#11220#11692#0" expanded="false" />
+            <element signature="e#4143#5768#0" expanded="false" />
+            <element signature="e#11137#11165#0" expanded="false" />
+            <element signature="e#11206#11678#0" expanded="false" />
             <element signature="n#!!block;n#collisionAlter#0" expanded="false" />
           </folding>
         </state>
@@ -548,8 +549,9 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#11151#11179#0" expanded="false" />
-            <element signature="e#11220#11692#0" expanded="false" />
+            <element signature="e#4143#5768#0" expanded="false" />
+            <element signature="e#11137#11165#0" expanded="false" />
+            <element signature="e#11206#11678#0" expanded="false" />
             <element signature="n#!!block;n#collisionAlter#0" expanded="false" />
           </folding>
         </state>
@@ -658,8 +660,9 @@
         <state relative-caret-position="1785">
           <caret line="242" column="40" selection-start-line="242" selection-start-column="40" selection-end-line="242" selection-end-column="40" />
           <folding>
-            <element signature="e#11151#11179#0" expanded="false" />
-            <element signature="e#11220#11692#0" expanded="false" />
+            <element signature="e#4143#5768#0" expanded="false" />
+            <element signature="e#11137#11165#0" expanded="false" />
+            <element signature="e#11206#11678#0" expanded="false" />
             <element signature="n#!!block;n#collisionAlter#0" expanded="false" />
           </folding>
         </state>
@@ -739,11 +742,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/public/javascripts/game.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="504">
-          <caret line="438" column="69" selection-start-line="438" selection-start-column="69" selection-end-line="438" selection-end-column="69" />
+        <state relative-caret-position="351">
+          <caret line="443" column="61" selection-start-line="443" selection-start-column="61" selection-end-line="443" selection-end-column="61" />
           <folding>
-            <element signature="e#11151#11179#0" expanded="false" />
-            <element signature="e#11220#11692#0" expanded="false" />
+            <element signature="e#4143#5768#0" expanded="false" />
+            <element signature="e#11137#11165#0" expanded="false" />
+            <element signature="e#11206#11678#0" expanded="false" />
             <element signature="n#!!block;n#collisionAlter#0" expanded="false" />
           </folding>
         </state>

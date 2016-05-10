@@ -101,35 +101,39 @@ Fighter = function(index, game, player){
     this.flyDirection;
     this.facing = 'left';
     this.dirrection = 'left';
+    var backHitbox;
+    var frontHitbox;
     //this.fighter.id = index;
     //if(datBoi == false){
-        this.fighter = game.add.sprite(x, y, 'allAnim');
-        game.physics.enable(this.fighter, Phaser.Physics.ARCADE);
-        this.fighter.body.bounce.y = 0;
+    this.fighter = game.add.sprite(x, y, 'allAnim');
+    game.physics.enable(this.fighter, Phaser.Physics.ARCADE);
+    this.fighter.body.bounce.y = 0;
         //this.fighter.scale.setTo(.5, .5);
-        this.fighter.body.collideWorldBounds = false;
-        this.fighter.body.setSize(60, 108);
-        this.fighter.body.checkCollision.up = false;
-        this.fighter.body.checkCollision.down = true;
-        this.fighter.animations.add('right', [28, 29, 30, 31, 32, 33], 10, true);
-        this.fighter.animations.add('turn', [35], 20, true);
-        this.fighter.animations.add('left', [41, 40, 39, 38, 37, 36], 10, true);
-        this.fighter.animations.add('idleLeft', [55, 54, 53, 52, 51, 50, 49], 10, true);
-        this.fighter.animations.add('idleRight', [42, 43, 44, 45, 46, 47, 48], 10, true);
-        this.fighter.animations.add('punchBehindRight', [0, 1, 2, 3, 4, 5, 6], 10, true);
-        this.fighter.animations.add('punchBehindLeft', [13, 12, 11, 10, 9, 8, 7], 10, true);
-        this.fighter.animations.add('punchFrontRight', [14, 15, 16, 17, 18, 19, 20],10, true);
-        this.fighter.animations.add('punchFrontLeft', [27, 26, 25, 24, 23, 22, 21],10, true);
-        this.fighter.animations.add('jumpRight', [56, 57, 58],10, true);
-        this.fighter.animations.add('jumpLeft', [70, 69, 58],10, true);
-        this.fighter.animations.add('rightInAir', [59],10, true);
-        this.fighter.animations.add('leftInAir', [66],10, true);
-        this.fighter.debug = true;
-        this.fighter.id = index;
+    this.fighter.body.collideWorldBounds = false;
+    this.fighter.body.setSize(60, 108);
+    this.fighter.body.checkCollision.up = false;
+    this.fighter.body.checkCollision.down = true;
+    this.fighter.animations.add('right', [28, 29, 30, 31, 32, 33], 10, true);
+    this.fighter.animations.add('turn', [35], 20, true);
+    this.fighter.animations.add('left', [41, 40, 39, 38, 37, 36], 10, true);
+    this.fighter.animations.add('idleLeft', [55, 54, 53, 52, 51, 50, 49], 10, true);
+    this.fighter.animations.add('idleRight', [42, 43, 44, 45, 46, 47, 48], 10, true);
+    this.fighter.animations.add('punchBehindRight', [0, 1, 2, 3, 4, 5, 6], 10, true);
+    this.fighter.animations.add('punchBehindLeft', [13, 12, 11, 10, 9, 8, 7], 10, true);
+    this.fighter.animations.add('punchFrontRight', [14, 15, 16, 17, 18, 19, 20],10, true);
+    this.fighter.animations.add('punchFrontLeft', [27, 26, 25, 24, 23, 22, 21],10, true);
+    this.fighter.animations.add('jumpRight', [56, 57, 58],10, true);
+    this.fighter.animations.add('jumpLeft', [70, 69, 58],10, true);
+    this.fighter.animations.add('rightInAir', [59],10, true);
+    this.fighter.animations.add('leftInAir', [66],10, true);
+    this.fighter.debug = true;
+    this.fighter.id = index;
         //jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
         //game.height = 720;
         //game.width = 1280;
-        this.fighter.scale.setTo(0.9, 0.9);
+    this.fighter.scale.setTo(0.9, 0.9);
+
+    //this.punchBox.visible = false;
    /* }
     if(datBoi == true){
         this.fighter = game.add.sprite(x, y, 'datBoi');
@@ -191,7 +195,6 @@ Fighter.prototype.update = function(){
         this.cursor.up != this.input.up ||
         this.cursor.punch != this.input.punch
     );
-
     if (inputChanged)
     {
         //Handle input change here
@@ -353,6 +356,7 @@ Fighter.prototype.knockBack = function(direction){
 function checkHit(fighter, target){
     //console.log(game.physics.arcade.overlap(fighter, target));
     //fighter.body.velocity.x = 0;
+    //
     target.gotPunched = true;
     if (fighter.dirrection == 'left')
         target.flyDirection = 'left';
@@ -436,7 +440,13 @@ function update() {
             {
                 var targetFgt = fighterList[j].fighter;
                 if(curFgt.justPunched == true && targetFgt.gotPunched != true){
-                    game.physics.arcade.overlap(curFgt, targetFgt, checkHit, null, this);
+                    //if(curFgt.animations.currentAnim.frame == 4){
+                        if(game.physics.arcade.overlap(curFgt, targetFgt)){
+                            console.log("Dat Boi");
+                            checkHit(curFgt, targetFgt);
+                        }
+
+                    //}
 
                 }
             }
